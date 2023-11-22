@@ -9,14 +9,15 @@ import { Group, Level, Student, Direction, School} from './classes'
         1985
     );
 
-    const group = new Group('direction.name', 'level.name');
-    group.addStudent(student)
-
     const level = new Level('starter', 'program');
-    level.addGroup(group)
 
     const direction = new Direction('frontend');
     direction.addLevel(level)
+
+    const group = new Group(direction.name, level.name);
+    group.addStudent(student)
+
+    level.addGroup(group)
 
     const school = new School();
     school.addDirection(direction)
