@@ -45,9 +45,6 @@ class Student {
 	private _grades: Grade[] = [];
 	private _visits: Visit[] = [];
 
-	// Опишите, как объект у которого есть поле workName и mark(оценка может быть выполненно или нет)
-	// Опишите, как объект у которого есть поле lesson (любое имя) и present
-
 	get fullName(): string {
 		return `${this._lastName} ${this._firstName}`;
 	}
