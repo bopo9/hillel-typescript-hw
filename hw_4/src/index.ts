@@ -7,7 +7,7 @@ interface ICalculator {
     multiply: (a: number, b: number) => number;
     divide: (a: number, b: number) => number;
 }
-enum calculatorOperationEnum {
+const enum calculatorOperationEnum {
     ADD = 'add',
     SUBTRACT = 'subtract',
     MULTIPLY = 'multiply',
@@ -42,26 +42,26 @@ console.log(calculate(calculator, calculatorOperationEnum.ADD, 1, 2));
 /**
  * BOOK EXAMPLE
  */
-interface Book {
+interface IBook {
     id: string;
     title: string;
     authorId: string;
 }
 
-interface Author {
+interface IAuthor {
     id: string;
     name: string;
 }
 
 interface ILibraryService {
-    booksRepository: Book[],
-    authorsRepository: Author[],
-    getBookById: (id: string) => Book | undefined
-    getAuthorById: (id: string) => Author | undefined
-    getAllBooks: () => Book[]
-    getAllAuthors: () => Author[],
-    setBook: (book: Book) => Book[],
-    setAuthor: (author: Author) => Author[],
+    booksRepository: IBook[],
+    authorsRepository: IAuthor[],
+    getBookById: (id: string) => IBook | undefined
+    getAuthorById: (id: string) => IAuthor | undefined
+    getAllBooks: () => IBook[]
+    getAllAuthors: () => IAuthor[],
+    setBook: (book: IBook) => IBook[],
+    setAuthor: (author: IAuthor) => IAuthor[],
 }
 
 const libraryService: ILibraryService = {
@@ -92,27 +92,35 @@ const libraryService: ILibraryService = {
             title: 'You Don`t know JavaScript'
         }
     ],
-    getAuthorById: (id: string) => {
-        const author =  this.authorsRepository.find((author: Author) => author.id === id);
+    getAuthorById: function (id: string) {
+        const author =  this.authorsRepository.find((author: IAuthor) => author.id === id);
 
         return author;
     },
-    getBookById: (id: string) => {
-        const book =  this.booksRepository.find((book: Book) => book.id === id);
+    getBookById: function (id: string) {
+        const book =  this.booksRepository.find((book: IBook) => book.id === id);
 
         return book;
     },
-    getAllAuthors: () => this.authorsRepository,
-    getAllBooks: () => this.booksRepository,
-    setAuthor: (author: Author) => {
+    getAllAuthors: function () {
+        return this.authorsRepository
+    },
+    getAllBooks: function () {
+        return this.booksRepository
+    },
+    setAuthor: function (author: IAuthor) {
         this.authorsRepository.unshift(author);
 
         return this.authorsRepository;
     },
-    setBook: (book: Book) => {
+    setBook: function (book: IBook) {
         this.booksRepository.unshift(book);
 
         return this.booksRepository;
     },
 }
 
+console.log(libraryService.getAllBooks())
+console.log(libraryService.getAllAuthors())
+console.log(libraryService.getAuthorById('fab57b8b-3cc0-442d-be6c-8679b462eef9'))
+console.log(libraryService.getBookById('a2de6b2b-c8eb-47dd-991d-6970d8e13938'))
